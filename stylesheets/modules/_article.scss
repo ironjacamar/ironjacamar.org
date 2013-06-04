@@ -1,0 +1,12 @@
+// Default Variables
+
+$article_bg: #FFFFFF;
+
+// Structure
+
+article {
+  background: $article_bg;
+  background-color: $article_bg;
+  padding: 5px;
+  margin: 0 auto;
+}

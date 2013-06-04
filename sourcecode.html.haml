@@ -1,0 +1,69 @@
+---
+layout: default
+title:  IronJacamar.org - Source code
+description: The IronJacamar source code
+---
+
+%h1 Source Code
+
+%a{:href=>"http://www.github.com/ironjacamar"}
+  %img{ :src=>"/images/github_32.png", :alt=>"GitHub"}
+
+%p
+
+The IronJacamar project is hosted on
+%a{:href=>"http://www.github.com/"} GitHub
+under the
+%a{:href=>"http://www.github.com/ironjacamar"} IronJacamar
+organization.
+
+%p
+
+Our code is hosted in the
+%a{:href=>"http://www.github.com/ironjacamar/ironjacamar"} IronJacamar
+repository.
+
+%p
+
+The code for this web site is hosted in the
+%a{:href=>"http://www.github.com/ironjacamar/ironjacamar.org"} IronJacamar.org
+repository.
+
+%p
+
+IronJacamar is licensed under
+%a{:href=>"http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"} GNU Lesser Public License 2.1
+
+%h2 Building
+
+IronJacamar uses 
+%a{:href=>"http://ant.apache.org"} Apache Ant
+and
+%a{:href=>"http://ant.apache.org/ivy"} Apache Ivy
+for its build environment. Consult the 
+%a{:href=>"/documentation.html"} developer guide
+for more information.
+
+%p
+
+.code
+  ant clean sjc
+
+%h2 Release
+
+.code
+  ant clean release
+
+%h2 Running
+
+.code
+  cd ironjacamar-VERSION/bin
+  %br
+  \./run.sh
+
+%h2 Jenkins
+
+%a{:href=>"http://ironjacamar.ci.cloudbees.com/"}
+  %img{ :src=>"http://www.cloudbees.com/sites/default/files/Button-Built-on-CB-1.png", :alt=>"CloudBees"}
+
+

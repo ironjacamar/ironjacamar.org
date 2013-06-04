@@ -1,0 +1,111 @@
+---
+layout: default
+title:  IronJacamar.org - About
+description: What is IronJacamar ?
+---
+
+%h1 About
+
+The Java Connector Architecture (JCA) defines a standard architecture for connecting the Java EE platform to
+heterogeneous Enterprise Information Systems (EIS). Examples of EISs include Enterprise Resource
+Planning (ERP), mainframe transaction processing (TP), database and messaging systems.
+
+%p
+
+The connector architecture defines a set of scalable, secure, and transactional mechanisms that enable
+the integration of EISs with application servers and enterprise applications.
+
+%p
+
+The connector architecture also defines a Common Client Interface (CCI) for EIS access. The CCI defines
+a client API for interacting with heterogeneous EISs.
+
+%p
+
+The connector architecture enables an EIS vendor to provide a standard resource adapter for its EIS.
+A resource adapter is a system-level software driver that is used by a Java application to connect
+to an EIS. The resource adapter plugs into an application server and provides connectivity between
+the EIS, the application server, and the enterprise application. The resource adapter serves as a
+protocol adapter that allows any arbitrary EIS communication protocol to be used for connectivity.
+An application server vendor extends its system once to support the connector architecture and is
+then assured of seamless connectivity to multiple EISs. Likewise, an EIS vendor provides one standard
+resource adapter which has the capability to plug in to any application server that supports
+the connector architecture.
+
+%h2 Use cases for Java EE Connector Architecture
+
+Examples of resource adapters
+
+%p
+
+%ul
+  %li A Java Database Connectivity (JDBC) resource adapter, which provides the foundation for datasources inside an application server, like WildFly
+  %li A Java Message Service (JMS) resource adapter, which enables communication with messaging systems, like HornetQ, ActiveMQ or WebSphereMQ
+  %li A Java Mail resource adapter, which allows email to trigger EJB3/Message-Driven Beans
+  %li A resource adapter for a legacy system that speak a weird binary protocol to be integrated with a Java Enterprise Edition server
+
+%p
+
+In short - when ever you have a situation where the system that you want to integrate with
+doesn't support a standard protocol, or when you want to take advantage of the cool features
+of Java EE Connector Architecture like pooling, security and transaction integration it is
+time to write a resource adapter !
+
+
+%h2 Team
+
+%h3 Jesper Pedersen
+
+%a{:href=>"mailto:jesper.pedersen@ironjacamar.org" }
+  Jesper Pedersen
+acts as the lead for IronJacamar.
+
+%h3 Jeff Zhang
+
+%a{:href=>"mailto:jeff.zhang@ironjacamar.org" }
+  Jeff Zhang
+is a core developer on the IronJacamar team.
+
+%h3 Stefano Maestri
+
+%a{:href=>"mailto:stefano.maestri@ironjacamar.org"}
+  Stefano Maestri
+is a core developer on the IronJacamar team.
+
+%h3 Lin Gao
+
+%a{:href=>"mailto:lin.gao@ironjacamar.org"}
+  Lin Gao
+is a core developer on the IronJacamar team.
+
+%h3 Vladimir Rastseluev
+
+%a{:href=>"mailto:vrastseluev@ironjacamar.org"}
+  Vladimir Rastseluev
+is a core developer on the IronJacamar team.
+
+%h3 Dimitris Andreadis
+
+%a{:href=>"mailto:dimitris@ironjacamar.org"}
+  Dimitris Andreadis
+is an advocate for the IronJacamar project.
+
+%h3 Johnaton Lee
+
+%a{:href=>"mailto:johnathonlee@ironjacamar.org"}
+  Johnaton Lee
+helps out in the IronJacamar community with identifying issues, and fixing them.
+
+%h3 Tyronne Wickramarathne
+
+%a{:href=>"mailto:tyronne@ironjacamar.org" }
+  Tyronne Wickramarathne
+helps out in the IronJacamar community with identifying issues, and fixing them.
+
+%h2 Thanks to
+
+Adrian Brock, Carlo de Wolf, Gurkan Erdogdu, Bruno Georges, Paul Gier,
+Jason Greene, Stefan Guilhen, Jonathan Halliday, S&oslash;ren Hilmer, Ales Justin, Vicky Kak, Aslak Knutsen,
+Sacha Labourey, Mark Little, Alexey Loubyansky, Patrick MacDonald, Scott Marlow, Shelly McGowan,
+Andrig Miller, Marcus Moyses, Weston Price, Andrew Lee Rubinger, Heiko Rupp, Anil Saldhana, Scott Stark,
+Clebert Suconic, Andy Taylor, Vladimir Vasilev, Jeremy Whiting, Yang Yong and Leslie York.
