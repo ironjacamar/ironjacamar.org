@@ -1,0 +1,65 @@
+---
+layout: default
+title:  GitHub Merge
+description: How to merge GitHub Pull Requests
+---
+
+%h1 Merging pull requests
+
+The pull requests are located at
+%a{:href=>"https://github.com/ironjacamar/ironjacamar/pulls"} https://github.com/ironjacamar/ironjacamar/pulls
+
+%p
+
+Any comments for the pull request should be done on the pull request page.
+
+%h2 0. Verify the pull request
+
+Check that the pull request is rebased against latest master revision - or the branch revision 
+it is submitted for.
+
+%h2 1. Creating a dedicated branch for the feature / bug-fix
+
+.code
+  git checkout -b &lt;author_name_branch_name&gt; master
+  %br
+  git pull git://github.com/&lt;author_name&gt;/ironjacamar.git &lt;branch_name&gt;
+  %br
+
+%h2 2. Compile and test
+
+.code
+  ant clean test
+  %br
+
+%h2 3. QE runs
+
+.code
+  ant clean checkstyle
+  %br
+  ant clean findbugs
+  %br
+
+%p
+
+The findbugs and checkstyle reports needs to be checked
+
+%h2 4. Merge to master branch
+
+.code
+  git checkout master
+  %br
+  git merge --ff-only &lt;author_name_branch_name&gt;
+  %br
+
+%h2 5. Push upstream
+
+.code
+  git push origin master
+  %br
+
+%h2 6. Delete the dedicated branch
+
+.code
+  git branch -D &lt;author_name_branch_name&gt;
+  %br
