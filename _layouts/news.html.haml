@@ -24,6 +24,8 @@
           %img{ :src=>"#{site.base_url}/images/banner.png", :alt=>"IronJacamar"}
     %article
       ~ content
+      %p
+      = page.disqus_comments
       %br
       %br
     %footer

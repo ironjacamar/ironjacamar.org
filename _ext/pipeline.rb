@@ -1,5 +1,7 @@
+require 'mydisqus'
 
 Awestruct::Extensions::Pipeline.new do
+  extension Awestruct::Extensions::MyDisqus.new
   # extension Awestruct::Extensions::Posts.new '/news'
   # extension Awestruct::Extensions::Indexifier.new
   # Indexifier *must* come before Atomizer
