@@ -1,0 +1,16 @@
+---
+title: IronJacamar - News
+layout: default
+---
+
+%h1
+  News archive
+  %a{:href=>"/news/news.atom"}
+    %img{ :src=>"/images/rss_16.png", :alt=>"RSS feed"}
+
+- for post in site.posts do
+  %div
+    #{post.date.strftime( '%B %-d, %Y' )}
+    \-
+    %a{:href=>post.url}= post.title
+    %br

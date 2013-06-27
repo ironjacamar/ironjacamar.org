@@ -26,13 +26,17 @@ See the
 section for more information about Java EE Connector Architecture.
 
 %h2
-  News
+  %a{:href=>"/news/"}
+    News
   %a{:href=>"/news/news.atom"}
     %img{ :src=>"/images/rss_16.png", :alt=>"RSS feed"}
 
-June 4th, 2013 -
-%a{:href=>"/news/2013/06/04/IronJacamarOrgLaunched.html"} IronJacamar.org launched
-%br
+- for post in site.posts[0, 5] do
+  %div
+    #{post.date.strftime( '%B %-d, %Y' )}
+    \-
+    %a{:href=>post.url}= post.title
+    %br
 
 %h2 Getting started
 
