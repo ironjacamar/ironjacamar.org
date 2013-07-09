@@ -31,12 +31,14 @@ section for more information about Java EE Connector Architecture.
   %a{:href=>"/news/news.atom"}
     %img{ :src=>"/images/rss_16.png", :alt=>"RSS feed"}
 
-- for post in site.posts[0, 5] do
-  %div
-    #{post.date.strftime( '%B %-d, %Y' )}
-    \-
-    %a{:href=>post.url}= post.title
-    %br
+.news-table
+  %table
+    - for post in site.posts[0, 5] do
+      %tr
+        %td
+          #{post.date.strftime( '%B %-d, %Y' )}
+        %td
+          %a{:href=>post.url}= post.title
 
 %h2 Getting started
 
