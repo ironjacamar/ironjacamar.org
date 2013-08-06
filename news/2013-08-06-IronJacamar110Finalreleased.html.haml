@@ -1,0 +1,213 @@
+---
+layout: comments
+title: IronJacamar 1.1.0.Final released
+description: 2013-08-06 IronJacamar 1.1.0.Final released
+---
+
+%h1 IronJacamar 1.1.0.Final released
+
+%strong
+  %i August 6th, 2013
+
+%p
+
+I'm very proud to announce IronJacamar 1.1.0.Final, the first stable release of our IronJacamar 1.1 series.
+
+%p
+
+Only minor issues were found during our CR2 testing, so the release are small.
+Full release notes are 
+%a{:href=>"https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&version=12322281"}
+  here 
+\.
+
+%h2 IronJamamar 1.1
+
+IronJacamar is an implementation of the Java EE Connector Architecture 1.7 specification featured in the Java EE 7 Full Profile.
+
+%p
+
+Java EE Connector Architecture (JCA) defines a standard architecture for connecting the Java EE platform to heterogeneous Enterprise Information Systems (EIS), like Enterprise Resource Planning (ERP), database and messaging systems.
+
+%p
+
+IronJacamar 1.1 is the second major feature release, which brings a lot of new functionality to the Java EE Connector
+Architecture community.
+
+%p
+
+The major new features includes
+
+%p
+
+%ul
+  %li Java EE Connector Architecture 1.7 certified
+  %li Lazy connection manager
+  %li Distributed work manager
+  %li Advanced pool capacity policies and flush strategies
+  %li Enhanced Arquillian integration
+  %li Eclipse development plugin
+  %li Enterprise Information System testing server
+  %li Resource adapter information tool
+  %li Migration tools 
+
+%p
+
+Lets do a run through.
+
+%h2 Java EE Connector Architecture 1.7
+
+The Java Connector Architecture 1.7 specification adds the following areas:
+
+%p
+
+%ul
+  %li Adds an activation name for message endpoints to uniquely identify them
+  %li Adds message endpoint class access
+  %li Deployment annotations for connection factories and administration objects 
+
+%p
+
+So, this would be considered a small update to the Java EE Connector Architecture specification
+in order to align with some of the new functionality in Java EE 7, especially for JMS 2.0.
+
+%h2 Lazy connection manager
+
+A lazy connection manager allows the JCA container to move a physical connection to an Enterprise Information
+System from one logical connection handle to another logical connection handle.
+
+%p
+
+The logical connection handle is the connection that the Java EE application interacts with, while the physical
+connection handle is the real connection controlled by the JCA container.
+
+%p
+
+This means that there can be more logical connection handles than physical ones - so basically the physical connections
+are multiplexed between the logical ones when needed, say 1000 logical connections to 100 physical connections.
+
+%p
+
+You can read more about this optional Java EE Connector Architecture feature in chapter 7.16.
+
+%h2 Distributed work manager
+
+A distributed workmanager is able to execute a
+
+%p
+.code
+  javax.resource.spi.work.DistributableWork
+
+%p
+
+instance on any node in the cluster where the associated resource adapter is deployed, and configured in the
+same way.
+
+%p
+
+This allows more optimal use of the JCA based resources across the entire cluster.
+
+%p
+
+The "when" and "where" is defined by policies and selectors configured on the DistributedWorkManager instance, f.ex.
+a policy of "Always" and a selector of "PingTime" will always send the work instance to the node which has the lowest
+ping time - excluding the node where the work instance was submitted to of course.
+
+%p
+
+Read more about the DistributedWorkManager in chapter 10.3.11 of the specification.
+
+%h2 Advanced pools
+
+Capacity policies and additional flush strategies have been added to the connection pool backing the physical connections.
+
+%p
+
+A capacity policy defines how a pool grows or shrinks when either being asked for a connection, or triggered by the idle connection
+scanner.
+
+%p
+
+This means that you can get your pool to grow by 2 connections if none are available, leading to not having the connection
+overhead for the next incoming request. Same goes for shrinking where you can remove all idle connections in the pool in
+order to limit resources spent.
+
+%h2 Tooling
+
+IronJacamar 1.1 saw a lot of tooling improvements.
+
+%p
+
+The integration with modern testing methods using
+%a{:href=>"http://www.arquillian.org"}
+  Arquillian
+and
+%a{:href=>"http://www.jboss.org/shrinkwrap"}
+  ShrinkWrap
+are now much easy to use with our embedded JCA environment, leading to easier unit test for resource adapters.
+Especially since we now have an Enterprise Information System testing server which can eliminate the need
+to actually have the real Enterprise Information System installed.
+
+%p
+
+This is also made available by a new IronJacamar Eclipse plugin.
+
+%p
+
+Last, but not least, there is a tool for getting valuable information about a resource adapter, and tools
+for migrating old configuration files.
+
+%p
+
+Our
+%a{:href=>"http://www.ironjacamar.org/doc/userguide/1.1/en-US/html/index.html"}
+  user guide
+contains much more information about these subjects, so check it out.
+
+%h2 The Road Ahead
+
+Planning for IronJacamar 2.0 has begun, but first more importantly:
+
+%p
+
+%b
+  Champagne !!
+
+%p
+
+Please, raise your glass, and celebrate with us.
+
+%p
+
+Last, but not least - A
+%b
+  HUGE
+shout-out to our community and developers who helped with this release. You know who you are ! 
+
+%p
+
+On behalf of the IronJacamar community,
+%br
+%i &nbsp;&nbsp;&nbsp; Jesper
+
+%p
+
+\[
+%a{:href=>"http://www.ironjacamar.org/"}
+  WebSite
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/download.html"}
+  Download
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/documentation.html"}
+  Documentation
+\]
+
+\[
+%a{:href=>"http://issues.jboss.org/browse/JBJCA"}
+  JIRA
+\]
