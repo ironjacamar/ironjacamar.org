@@ -1,0 +1,93 @@
+---
+layout: comments
+title:  IronJacamar 2 project launch
+description: 2013-08-14 IronJacamar 2 project launch
+---
+
+%h1 IronJacamar 2 project launch
+
+%strong
+  %i August 14th, 2013
+
+%p
+
+Today, we are launching the IronJacamar 2 project.
+
+%p
+
+IronJacamar 2 will redefine the project in key areas, and provide the Java EE Connector Architecture
+community with a customizable platform that fits their use-case.
+
+%p
+
+The first major change will be a change to our license. The project will now be relased under the
+%a{:href=>"http://www.eclipse.org/legal/epl-v10.html"} Eclipse Public License v1.0
+license. This change is done in order to support projects, which doesn't allow a GNU Lesser
+Public License based project to be used.
+
+%p
+
+The second major change will be a change to our package name. The project will from now on use the
+"org.ironjacamar" package namespace for all code and tools.
+
+%p
+
+The third major change is how the container is assembled at run-time. As Java EE Connector Architecture
+containers are used for important areas, like controlling
+%a{:href=>"http://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html"}
+  datasources
+and providing the integration for
+%a{:href=>"http://docs.oracle.com/javaee/7/api/javax/ejb/MessageDrivenBean.html"}
+  Enterprise Messaging Beans
+into Java EE environments it is important that each project can choose which parts of the IronJacamar
+container to enable. This will be made possible by providing a service-oriented architecture which
+will enable a specific component of the container, and the required dependencies.
+
+%p
+
+There will also be new functionality as compared to the IronJacamar 1.x project. Wishlist includes
+
+%p
+
+%ul
+  %li Proof of Concept for Java EE Connector Architecture 2.0
+  %li Pool less container
+  %li Lazy association for transacted based scenarios
+  %li Serializable connection manager
+  %li Fat pool lock
+
+%p
+
+Especially the first bullet is of interest, since the current Java EE Connector Architecture specification
+has been using the same overall architecture since version 1.0. The proof of concept will provide a more
+modern way of implementing a resource adapter, only requiring the necessary parts to be implemented and also
+allow injection of major components, like 
+%i BootstrapContext
+and
+%i WorkManager
+\.
+
+%p
+
+Of course the project will continue to support the latest 
+%a{:href=>"http://jcp.org/en/jsr/detail?id=322"}
+  Java EE Connector Architecture
+specification.
+
+%p
+
+We have constructed an IronJacamar 2
+%a{:href=>"/doc/ironjacamar2.html"} development
+area, where overall goals for each component is described. These documents will be expanded over time.
+
+%p
+
+We invite you to join our
+%a{:href=>"/community.html"} community
+, contribute with ideas, and help to build the next generation of a Java EE Connector Architecture container.
+
+%p
+
+On behalf of the IronJacamar community,
+%br
+%i &nbsp;&nbsp;&nbsp; Jesper

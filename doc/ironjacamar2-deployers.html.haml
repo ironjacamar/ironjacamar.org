@@ -1,0 +1,75 @@
+---
+layout: default
+title:  IronJacamar 2 / Deployers
+description: IronJacamar 2 deployers module
+---
+
+%h1 IronJacamcar 2 / Deployers
+
+%h2 Activation metadata
+
+The ironjacamar.xml and -ra.xml files will be converted into an activation metadata
+type, which is used in the deployer chain.
+
+%p
+
+The ironjacamar.xml will be converted into 1 activation metadata entry, where -ra.xml will
+be converted into X activation metadata entries based on the number of resource-adapter elements
+there are.
+
+%p
+
+Any services which deploys at run-time will use 1 activation metadata entry to describe the
+activation.
+
+%h2 Deployer chain
+
+The deployer chain will contain a state machine which will "progress" the deployment along
+while filling out the deployment structure for the deployment repository.
+
+%p
+
+For standalone and embedded the state machine and deployment structure will be kept in the 
+
+%p
+
+.code
+  com.github.fungal.spi.deployers.Context
+
+%p
+
+instance attached to the deployer chain.
+
+%p
+
+The deployer chain must be as fine grained as possible, with clear functionality separation, like
+
+%p
+
+%ul
+  %li Create java.io.File descriptor (extract archive)
+  %li Parse META-INF/ra.xml
+  %li Parse META-INF/ironjacamar.xml
+  %li Parse -ra.xml
+  %li Create ResourceAdapter instance
+  %li Create ConnectionFactory instances
+  %li Create AdminObject instances
+
+%p
+
+and so on. The priority of the deployer must be defined in the central location.
+
+%p
+
+All the deployer chain modules must delegate as much as possible to an abstract class or
+static library methods in order to re-use as much functionality as possible across deployment models.
+
+%p
+
+Data from each step should be recorded in order to maximize feedback to the end-user once the 
+deployment has been processed successfully or rejected. Validation feedback of the created or used objects
+must be included in these reports.
+
+%p
+
+The deployer chain must be documented in the developer guide.

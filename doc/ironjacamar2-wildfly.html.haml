@@ -1,0 +1,47 @@
+---
+layout: default
+title:  IronJacamar 2 / WildFly
+description: IronJacamar 2 wildfly module
+---
+
+%h1 IronJacamcar 2 / WildFly
+
+%ul
+  %li DMR mapping on new metadata
+  %li DMR transformations
+  %li WildFly deployer chain mapping on new IronJacamar deployer chain
+  %li Runtime attribute SPI
+  %li ResourceAdapter ID have to be mandatory, even in case of single RA
+
+%h2 DMR mapping on new metadata
+
+The IronJacamar/Common module will allow that a direct DMR mapping in WildFly can be implemented.
+
+%p
+
+The WildFly model will, like IronJacamar/Common, only operate on the latest IronJacamar metadata models,
+and provide transformers for earlier models.
+
+%p
+
+The WildFly DMR mapping will take care of expressions resolved to "undefined" using the IronJacamar defaults.
+
+%h2 DMR transformations
+
+WildFly will use the transformers of IronJacamar/Common as a base to provide transformers from older versions of the metadata
+to the latest version.
+
+%h2 WildFly deployer chain mapping on new IronJacamar deployer chain
+
+WildFly will use the abstract deployers from IronJacamar/Deployers to map the WildFly deployment model to the state machine
+of IronJacamar/Deployers.
+
+%h2 Runtime attribute SPI
+
+Investigate if "AttributeDescriptionBuilder" can be used to integrate with runtime attributes, like the Statistics SPI.
+
+%h2 ResourceAdapter ID have to be mandatory, even in case of single RA
+
+The ID attribute of "resource-adapter" will be mandatory in WildFly in order to make service dependencies easier, and stable
+over a domain.
+

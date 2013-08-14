@@ -1,0 +1,166 @@
+---
+layout: default
+title:  IronJacamar 2 / Goals
+description: IronJacamar 2 goals
+---
+
+%h1 IronJacamcar 2 / Goals
+
+%h2 Service oriented architecture
+
+The project is split into artifacts which each represents a component for the
+Java EE Connector Architecture container in order to let external projects select
+which parts of IronJacamar they need.
+
+%p
+
+Examples
+
+%p
+
+%ul
+  %li ironjacamar-core-notx-connectionmanager.jar
+  %li ironjacamar-core-tx-connectionmanager.jar
+
+%p
+
+Each component is initialized based upon one or more service files
+
+%p
+
+.code
+  META-INF/services/org.ironjacamar
+
+%p
+
+Service files needed for
+
+%p
+
+%ul
+  %li XML parser
+  %li Connection manager
+  %li Deployer
+
+%p
+
+and all SPI integration points.
+
+%p
+
+It must be possible to provide a static configuration of the IronJacmar container wihtout having
+to relying on service activation.
+
+%h2 Service provider interface (SPI) for all integration points
+
+%ul
+  %li Transaction
+  %li Security
+  %li Thread
+  %li Naming
+  %li Bean validation
+  %li DistributedWorkManager
+  %li Work manager statistics
+  %li Statistics plugins
+
+%h2 Proof of Concept for Java EE Connector Architecture 2.0
+
+Redo the Java EE Connector Architecture specification focusing on updating the concepts to
+more modern ways of doing things.
+
+%p
+
+TODOs
+
+%p
+
+%ul
+  %li Split interfaces such that only needed part needs to be implemented 
+  %li Allow injection of objects, like BootstrapContext and WorkManager
+  %li Provide marker interfaces for main components, like ConnectionFactory and AdminObject
+  %li Remove Common Client Interface
+
+%p
+
+The code will be located in
+
+%p
+
+.code
+  org.ironjacamar.spi
+
+%p
+
+with sub-packages as public packages with OSGi exports.
+
+%h2 Pool less container
+
+Investigate the possibility to create a pool less container setup, where connections are enlisted
+in the transaction, but the physical connections are maintained outside of IronJacamar.
+
+%p
+
+Test setup
+
+%p
+
+%ul
+  %li 
+    %a{:href=>"http://www.postgresql.org/"}
+      PostgreSQL
+  %li
+    %a{:href=>"http://www.pgpool.net/mediawiki/index.php/Main_Page"}
+      pgpool-II
+  %li
+    %a{:href=>"http://wiki.postgresql.org/wiki/PgBouncer"}
+      pgBouncer
+
+%h2 Lazy association for transacted based scenarios
+
+Have the LocalTransactionConnectionManager and XATransactionConnectionManager implement
+
+%p
+
+.code
+  javax.resource.spi.LazyAssociatableConnectionManager
+
+%p
+
+in order to allow transaction based deployments to take advantage of the feature.
+
+%p
+
+This will require that the associated XAResource instance is being tracked.
+
+%h2 Serializable connection manager
+
+The connection manager should be serializable as per specification.
+
+%p
+
+Furthermore, they should be split into 
+
+%p
+
+%ul
+  %li NoTransactionConnectionManager
+  %li LocalTransactionConnectionManager
+  %li XATransactionConnectionManager
+
+%p
+
+where the latter has a flag for interleaving.
+
+%h2 Fat pool lock
+
+Give the pool implementation the option of using a "fat" lock, e.g. taking a lock
+across all credentials used by the pool.
+
+%p
+
+This will make "max-pool-size" a global pool setting, instead of a sub-pool setting as
+it is with IronJacamar 1.x.
+
+%p
+
+The default should still be a lock at the sub-pool level in order to maximize performance.

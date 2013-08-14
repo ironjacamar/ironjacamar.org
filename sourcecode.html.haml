@@ -29,14 +29,26 @@ The code for this web site is hosted in the
 %a{:href=>"http://www.github.com/ironjacamar/ironjacamar.org"} IronJacamar.org
 repository.
 
+%h2 License
+
+IronJacamar 2.x is licensed under 
+%a{:href=>"http://www.eclipse.org/legal/epl-v10.html"} Eclipse Public License v1.0
+
 %p
 
-IronJacamar is licensed under
+IronJacamar 1.x is licensed under
 %a{:href=>"http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"} GNU Lesser Public License 2.1
 
 %h2 Building
 
-IronJacamar uses 
+%h3 IronJacamar 2.x
+
+IronJacamar 2.x will use 
+%a{:href=>"http://www.gradle.org"} Gradle
+
+%h3 IronJacamar 1.x
+
+IronJacamar 1.x uses 
 %a{:href=>"http://ant.apache.org"} Apache Ant
 and
 %a{:href=>"http://ant.apache.org/ivy"} Apache Ivy
@@ -46,13 +58,15 @@ for more information.
 
 %p
 
+Standard:
 .code
   ant clean sjc
 
-%h2 Release
+%p
 
+Release:
 .code
-  ant clean release
+  ant -Declipse.home=/path/to/eclipse clean release
 
 %h2 Running
 

@@ -1,0 +1,149 @@
+---
+layout: default
+title:  IronJacamar 2 / Core
+description: IronJacamar 2 core module
+---
+
+%h1 IronJacamcar 2 / Core
+
+%h2 APIs
+
+The API is split into two
+
+%p
+
+%ol
+  %li Public and supported
+  %li Internal and unsupported
+
+%p
+
+The public API only contains interfaces, classes and exceptions which may be used by a resource
+adapter vendor in order to access IronJacamar specific functionality. The package name for the APIs
+will have an .api in their name in order to reflect that they are supported. The artifacts for APIs
+have their Java archive name end in -api.jar.
+
+%p
+
+The internal API only contains interfaces, classes and exceptions which are used by IronJacamar itself.
+The API may of course be accessed from resource adapters, but it isn't support, and breakage may occur
+even in patch releases. The package name for the internal APIs
+will have an impl.api in their name in order to reflect that they are unsupported. The artifacts for internal APIs
+are included in their implementation specific Java archive.
+
+%h2 Recovery
+
+Have the recovery module use the pool as its backing store.
+
+%h2 ResourceAdapter repository
+
+The ResourceAdapterRepository keeps track of the ResourceAdapter instances currently activated.
+
+%p
+
+Since a ResourceAdapter instance can be referenced from multiple deployments the tracking needs
+to be ref-counted.
+
+%p
+
+Much of the code from IronJacamar 1.x can be reused, but usage of String based identifiers should
+be revisited.
+
+%h2 Metadata repository
+
+The job of the MetadataRepository is to keep track of the specification metadata defined by a resource
+adapter deployment.
+
+%p
+
+The resource adapter may not have a java.io.File associated, so this can't be a mandatory parameter.
+Make it optional, or do an overloaded method with a classloader as the building block.
+
+%p
+
+TODOs
+
+%p
+
+%ul
+  %li String based identifiers
+  %li Move IronJacamar metadata to deployment repository
+  %li Move JNDI information to deployment repository
+
+%p
+
+Most of the IronJacamar 1.x MetadataRepository implementation can go into the new deployment repository.
+
+%h2 Deployment repository
+
+The deployment repository keeps track of all deployments, and provide access to
+the IronJacamar created objects.
+
+%p
+
+The deployment repository is shared by resource adapter and datasource deployments.
+
+%h3 DeploymentRepository
+
+%ul
+  %li Add a deployment
+  %li Get a deployment
+  %li Remove a deployment
+  %li Methods for querying deployments (findByJNDI(String), ...)
+
+%h3 Deployment
+
+%ul
+  %li
+    Deployment identifier
+  %li
+    Resource adapter archive reference - either file or module (classloader)
+  %li
+    Classloader
+  %li
+    ResourceAdapter instance reference
+  %li
+    config-property (read-only, writable, confidential) with value
+    %ul
+      %li Declared
+      %li Introspected
+  %li
+    ResourceAdapter statistics
+  %li
+    Deployment metadata
+  %li
+    ConnectionFactory (List)
+    %ul
+      %li
+        JNDI name
+      %li
+        ConnectionManager
+      %li
+        Pool
+      %li
+        config-property (read-only, writable, confidential) with value
+        %ul
+          %li Declared
+          %li Introspected
+      %li
+        Recovery module
+      %li
+        Activation metadata
+      %li
+        Pool statistics
+      %li
+        ManagedConnectionFactory statistics
+  %li
+    AdminObject (List)
+    %ul
+      %li
+        JNDI name
+      %li
+        config-property (read-only, writable, confidential) with value
+        %ul
+          %li Declared
+          %li Introspected
+      %li
+        Activation metadata
+      %li
+        Statistics

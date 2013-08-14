@@ -1,0 +1,101 @@
+---
+layout: default
+title:  IronJacamar 2 / Test suite
+description: IronJacamar 2 test suite module
+---
+
+%h1 IronJacamcar 2 / Test suite
+
+All test cases should be written using
+
+%p
+
+%ul
+  %li
+    %a{:href=>"http://junit.org/"} JUnit
+  %li
+    %a{:href=>"http://www.arquillian.org/"} Arquillian
+  %li
+    %a{:href=>"http://www.jboss.org/shrinkwrap"} ShrinkWrap
+  %li
+    %a{:href=>"http://www.jboss.org/shrinkwrap"} ShrinkWrap/Descriptors
+  %li
+    %a{:href=>"http://www.jboss.org/byteman"} Byteman
+
+%p
+
+The test suite will be divided into the following categories
+
+%p
+
+%ul
+  %li Smoke
+  %li Integration
+
+%p
+
+The smoke test cases will be located in the source module for the code it tests. The smoke test cases focuses on
+testing basic functionality provided by the module in question.
+
+%p
+
+The integration test cases will be located in a single testsuite module, and will contains test cases for all source modules.
+The integration test cases will test functionality in one or more source modules using the test resource adapters available.
+
+%h2 Test goal
+
+The test goal should be described in the JavaDoc for the test class.
+
+%h2 Test location
+
+The test case should be located in the package name of the functionality it is testing.
+
+%p
+
+.code
+  org.ironjacamar.core.workmanager
+
+%p
+
+If the test case doesn't require package protected access, then it can be located in a package
+name that clearly identifies the area being tested, like
+
+%p
+
+.code
+  org.ironjacamar.core.workmanager.unit
+
+%p
+
+%h2 Test execution
+
+It must be possible to
+
+%p
+
+%ul
+  %li Execute a single test case
+  %li Execute smoke and integration test cases for a single model
+  %li Execute all test cases
+
+%p
+
+%h2 Quality Assurance
+
+%h3 Checkstyle
+
+%a{:href=>"http://checkstyle.sourceforge.net/"} checkstyle homepage
+
+%h3 JaCoCo
+
+%a{:href=>"http://www.eclemma.org/jacoco/"} jacoco homepage
+
+%h3 findbugs
+
+%a{:href=>"http://findbugs.sourceforge.net/"} findbugs homepage
+
+%h3 Tattletale
+
+%a{:href=>"http://www.jboss.org/tattletale"} tattletale homepage
+
+

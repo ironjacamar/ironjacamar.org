@@ -1,0 +1,119 @@
+---
+layout: default
+title:  IronJacamar 2
+description: IronJacamar 2 development plan
+---
+
+%h1 IronJacamcar 2
+
+%h2 Overall goals
+
+%ul
+  %li Service oriented architecture
+  %li Service provider interface (SPI) for all integration points
+  %li Proof of Concept for Java EE Connector Architecture 2.0
+  %li Pool less container
+  %li Lazy association for transacted based scenarios
+  %li Serializable connection manager
+  %li Fat pool lock
+
+%p
+
+Furthermore, IronJacamar 2 will focus on implementing the current and potential upcoming
+Java EE Connector Architecture specification, and other specifications that may qualify
+within this space.
+
+%p
+
+IronJacamar 2 should build on the feature set of IronJacamar 1.x. However, a different
+implementation may be needed in order to align with the new architecture.
+
+%p
+
+%a{:href=>"ironjacamar2-goals.html"} Description
+of the goals.
+
+%h2 IronJacamar modules
+
+%ul
+  %li
+    %a{:href=>"ironjacamar2-common.html"} Common
+  %li
+    %a{:href=>"ironjacamar2-core.html"} Core
+  %li
+    %a{:href=>"ironjacamar2-deployers.html"} Deployers
+  %li
+    %a{:href=>"ironjacamar2-embedded.html"} Embedded
+  %li
+    %a{:href=>"ironjacamar2-standalone.html"} Standalone
+  %li
+    %a{:href=>"ironjacamar2-testsuite.html"} Test suite
+  %li
+    %a{:href=>"ironjacamar2-tools.html"} Tools
+  %li
+    %a{:href=>"ironjacamar2-wildfly.html"} WildFly
+
+%h2 License
+
+IronJacamar 2 will be licensed under 
+%a{:href=>"http://www.eclipse.org/legal/epl-v10.html"} Eclipse Public License v1.0
+
+%h2 Source code
+
+Source code will be located at
+%a{:href=>"https://github.com/ironjacamar/ironjacamar/"} https://github.com/ironjacamar/ironjacamar/
+in the "master" branch.
+
+%h2 Package name
+
+The package names will start with
+
+%p
+
+.code
+  org.ironjacamar
+
+%p
+
+%h2 Build system
+
+The build system will be based on
+%a{:href=>"http://www.gradle.org/"} Gradle 1.7+
+
+%h2 Continuous integration
+
+Continuous integration will be performed at
+%a{:href=>"https://ironjacamar.ci.cloudbees.com/"} CloudBees
+
+%h2 Maven repository
+
+The Maven repository will hosted at
+%a{:href=>"https://oss.sonatype.org/content/groups/public"} Sonatype
+aka Maven Central under the artifact identifier
+
+%p
+
+.code
+  org.ironjacamar
+
+%p
+
+%h2 Documentation
+
+The documentation is done in 
+%a{:href=>"http://docbook.org/tdg51/en/html/"}
+  Docbook 4+
+\.
+
+%h2 Logging codes
+
+All logging codes in IronJacamar 2.x will start with
+
+%p
+
+.code
+  IJ2xxxxx
+
+%p
+
+with separate areas for each IronJacamar module, and component.
