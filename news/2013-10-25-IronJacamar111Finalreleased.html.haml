@@ -1,0 +1,71 @@
+---
+layout: comments
+title: IronJacamar 1.1.1.Final released
+description: 2013-10-25 IronJacamar 1.1.1.Final released
+---
+
+%h1 IronJacamar 1.1.1.Final released
+
+%strong
+  %i October 25th, 2013
+
+%p
+
+I'm proud to announce the IronJacamar 1.1.1.Final release. Full release notes are
+%a{:href=>"http://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&version=12322339"}
+  here
+\.
+
+%p
+
+This is the first update to our 1.1 series, and contains a number of bug-fixes found
+over the last months.
+
+%p
+
+The release also upgrades a lot of components to align with their counterpart found
+in the
+%a{:href=>"http://www.wildfly.org/"}
+  WildFly
+project to bring in more Java Enterprise Edition 7 functionality.
+
+%p
+
+There was one new feature in the release, namely
+%a{:href=>"http://issues.jboss.org/browse/JBJCA-1107"}
+  JBJCA-1107
+, which allows a connection to be obtained even when the transaction is in MARKED_FOR_ROLLBACK mode.
+This should not be considered best practice to enable this feature, but more as a help while
+porting the application to actually check the transaction status before doing any work.
+
+%p
+
+Feedback on the release is as always most welcome ! Enjoy !
+
+%p
+
+On behalf of the IronJacamar community,
+%br
+%i &nbsp;&nbsp;&nbsp; Jesper
+
+%p
+
+\[
+%a{:href=>"http://www.ironjacamar.org/"}
+  WebSite
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/download.html"}
+  Download
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/documentation.html"}
+  Documentation
+\]
+
+\[
+%a{:href=>"http://issues.jboss.org/browse/JBJCA"}
+  JIRA
+\]
