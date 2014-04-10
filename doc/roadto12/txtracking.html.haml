@@ -1,0 +1,210 @@
+---
+layout: default
+title:  Transactional ConnectionEventListener tracking
+description: Article about transactional boundaries of ConnectionEventListener
+---
+
+%h1 Transactional ConnectionEventListener tracking
+
+The Java EE Connector Architecture has a concept called a
+%i
+  ConnectionEventListener
+which is the mechanism that a resource adapter notifies the
+%i
+  ConnectionManager
+that a connection handle isn't longer in use, or had an error occur on it.
+
+%p
+
+The
+%i
+  ConnectionManager
+uses these notifications to know when a
+%i
+  ManagedConnection
+can be returned to the pool, since the
+%i
+  ConnectionEventListener
+keeps track of the connection handles registered and unregistred.
+
+%p
+
+Another dimension comes into play when the
+%i
+  ManagedConnection
+is enlisted in a transaction, e.g. when the resource adapter is deployed with either
+%i
+  LocalTransaction
+or
+%i
+  XATransaction
+as its transaction setting.
+
+%p
+
+The
+%i
+  XAResource
+instance associated, either through the IronJacamar container in the case of
+%i
+  LocalTransaction
+or the instance directly attached to the
+%i
+  ManagedConnection
+in the case of
+%i
+  XATransaction
+is enlisted on the active transaction through the
+%i
+  tx.enlistResource(xaResource)
+method call, and the
+%i
+  ManagedConnection
+is "scoped" to the transaction itself.
+
+%p
+
+However, that present a problem when a connection handle is used across transactional boundaries, like
+
+%p
+
+.code
+  \// UserTransaction instance bound to 'ut', and DataSource instance bound to 'ds'
+  %br
+  Connection c = null;
+  %br
+  %br
+  \// Transaction #1
+  %br
+  ut.begin();
+  %br
+  c = ds.getConnection();
+  %br
+  ut.commit();
+  %br
+  %br
+  \// Transaction #2
+  %br
+  ut.begin();
+  %br
+  c.close();
+  %br
+  ut.commit();
+
+%p
+
+because at the end of
+%i
+  Transaction #1
+the associated
+%i
+  XAResource
+is delisted from the transaction, but the
+%i
+  ManagedConnection
+can't be returned to the pool, as there is still a connection handle associated. This means that usage of the
+connection handle in
+%i
+  Transaction #2
+can't be determined in a transactional context, since there is no
+%i
+  XAResource
+associated with
+%i
+  Transaction #2
+\. The
+%i
+  c.close()
+will allow the
+%i
+  ManagedConnection
+instance to be returned to the pool, but not on transactional boundary itself.
+
+%p
+
+This scenario is due to application usage errors, so we should detect and highlight the problem to the developers.
+
+%p
+
+There is a new deployment attribute called
+%i
+  tracking
+which can be used to enable tracking of the transactional
+%i
+  ConnectionEventListener
+over the transactional boundaries.
+
+%p
+
+The IronJacamar default setting will be to only report that it has detected the problem, and have therefore destroyed
+the associated
+%i
+  ManagedConnection
+instance, as it can't be trusted anymore.
+
+%p
+
+.code
+  11:31:32,952 ERROR [TxConnectionListener] IJ000315: Pool TxLog has 1 active handles
+
+%p
+
+By setting
+%i
+  tracking
+to
+%i
+  true
+you will get a full trace of where the connection handle was allocated, and where the transaction boundary ended
+
+%p
+.code_small
+  11:31:32,952 ERROR [TxConnectionListener] IJ000315: Pool TxLog has 1 active handles
+  %br
+  %br
+  11:31:32,953 ERROR [TxConnectionListener] IJ000316: Handle allocation: TxLogConnection@520c87f3[mc=TxLogManagedConnection@7f0eb91e[txState=3B8]]: java.lang.Exception
+  at org.jboss.jca.core.connectionmanager.listener.AbstractConnectionListener.registerConnection(AbstractConnectionListener.java:281)
+  at org.jboss.jca.core.connectionmanager.AbstractConnectionManager.registerAssociation(AbstractConnectionManager.java:880)
+  at org.jboss.jca.core.connectionmanager.AbstractConnectionManager.allocateConnection(AbstractConnectionManager.java:590)
+  at org.jboss.jca.core.tx.rars.txlog.TxLogConnectionFactoryImpl.getConnection(TxLogConnectionFactoryImpl.java:80)
+  at org.jboss.jca.core.connectionmanager.listener.AcrossTransactionTestCase.testBase(AcrossTransactionTestCase.java:197)
+  at org.jboss.jca.core.connectionmanager.listener.AcrossTransactionTestCase.testXA(AcrossTransactionTestCase.java:254)
+  %br
+  %br
+  11:31:32,955 ERROR [TxConnectionListener] IJ000317: Transaction boundary: java.lang.Exception
+  at org.jboss.jca.core.connectionmanager.listener.TxConnectionListener$TransactionSynchronization.afterCompletion(TxConnectionListener.java:1028)
+  at org.jboss.jca.core.connectionmanager.transaction.TransactionSynchronizer.invokeAfter(TransactionSynchronizer.java:397)
+  at org.jboss.jca.core.connectionmanager.transaction.TransactionSynchronizer.afterCompletion(TransactionSynchronizer.java:343)
+  at org.jboss.jca.core.tx.vts.TransactionImpl.finish(TransactionImpl.java:402)
+  at org.jboss.jca.core.tx.vts.TransactionImpl.commit(TransactionImpl.java:99)
+  at org.jboss.jca.core.tx.vts.TxRegistry.commitTransaction(TxRegistry.java:79)
+  at org.jboss.jca.core.tx.vts.UserTransactionImpl.commit(UserTransactionImpl.java:115)
+  at org.jboss.jca.core.connectionmanager.listener.AcrossTransactionTestCase.testBase(AcrossTransactionTestCase.java:199)
+  at org.jboss.jca.core.connectionmanager.listener.AcrossTransactionTestCase.testXA(AcrossTransactionTestCase.java:254)
+
+%p
+
+For
+%i
+  XATransaction
+with interleaving scenarios the error code
+%i
+  IJ000318
+will be reported.
+
+%p
+
+By setting
+%i
+  tracking
+to
+%i
+  false
+you will get the old behavior, where the
+%i
+  ManagedConnection
+will be valid across the transactional boundaries, but only enlisted during the first transaction.
+
+%p
+
+The IronJacamar community hopes that this new feature will help developers to find application code, which has been assuming certain conditions that weren't valid.
