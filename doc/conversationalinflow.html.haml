@@ -1,0 +1,248 @@
+---
+layout: default
+title:  Conversational inflow
+description: Proof of concept for Conversational Inflow
+---
+
+%h1 Conversational Inflow
+
+One feature that the Java EE Connector Architecture specification is lacking at the moment is
+a way for the Enterprise Information System to have a "conversation" with the application
+server spanning multiple requests and responses.
+
+%p
+
+%b
+  Status: Proof of concept stage
+
+%h2 State of the Union
+
+Today the Java EE Connector Architecture specification allows a resource adapter to
+send a request to a
+%i
+  MessageEndpoint
+through a
+%i
+  MessageEndpointFactory
+that is configured with an
+%i
+  ActivationSpec
+instance, and get a response back. If the
+%i
+  MessageEndpoint
+supports transactions then the boundary of those are handled by the
+%i
+  MessageEndpointFactory
+\.
+
+%p
+
+This supports a single request-response scenario between the Enterprise Information System
+and the application server, with an optional transaction context.
+
+%p
+
+%i
+  Example scenario: Messaging system triggering an Enterprise JavaBean Message Driven Bean (EJB/MDB)
+%br
+%i
+  Brief overview:
+  %a{:href=>"http://www.ironjacamar.org/doc/userguide/1.2/en-US/html/ch01.html#overview_inbound"}
+    Inbound resource adapter
+
+%h2 Description of feature
+
+Conversational inflow will allow the Enterprise Information System to have an interaction with
+the application server that spans multiple requests / responses while optionally grouping the entire
+flow under a single transactional context.
+
+%p
+
+This would allow mapping a work flow inside the Enterprise Information System to a work flow executed
+in an application server context.
+
+%p
+
+In order to enable this interaction we need to extend the current Java EE Connector Architecture
+specification with new interfaces that defines the contract of these interactions.
+
+%p
+
+First, we need a
+%i
+  ConversationalResourceAdapter
+interface that allows activation and deactivation of a
+%i
+  ConversationalMessageEndpointFactory
+with an associated
+%i
+  ActivationSpec
+instance.
+
+%p
+
+.code_small
+  ConversationalResourceAdapter
+  %br
+  %br
+  public void conversationActivation(ConversationalMessageEndpointFactory cmef, ActivationSpec as) throws ResourceException;
+  %br
+  public void conversationDeactivation(ConversationalMessageEndpointFactory cmef, ActivationSpec as);
+  
+%p
+
+The
+%i
+  ConversationalMessageEndpointFactory
+manage the
+%i
+  Conversation
+instances.
+
+%p
+
+.code_small
+  ConversationalMessageEndpointFactory
+  %br
+  %br
+  public Conversation beginConversation(Serializable identifier) throws ResourceException;
+  %br
+  public Conversation getConversation(Serializable identifier) throws ResourceException;
+  %br
+  public Set&lt;Serializable&gt; activeConversations();
+  
+%p
+
+The
+%i
+  Conversation
+controls an entire interaction between the Enterprise Information System and the
+%i
+  ConversationalMessageEndpoint
+instance(s) deployed in the application server. The
+%i
+  Conversation
+also defines the transactional boundary for the interaction.
+
+%p
+
+The
+%i
+  Conversation
+needs to support multiple endpoints of the same type, so a concrete instance is determined by a set of properties that the endpoint
+is configured with.
+
+%p
+
+.code_small
+  Conversation
+  %br
+  %br
+  public ConversationalMessageEndpoint createEndpoint(Class&lt;?&gt; endpoint, Map&lt;Serializable, Serializable&gt; properties, XAResource xares) throws ResourceException;
+  %br
+  public Set&lt;Map&lt;Serializable, Serializable&gt;&gt; getProperties(Class&lt;?&gt; endpoint) throws ResourceException;
+  %br
+  public boolean isDeliveryTransacted(Class&lt;?&gt; endpoint, Map&lt;Serializable, Serializable&gt; properties, Method method) throws ResourceException;
+  %br
+  public Set&lt;Class&lt;?&gt;&gt; getEndpointClasses();
+  %br
+  public void endConversation() throws ResourceException;
+  %br
+  public void cancelConversation() throws ResourceException;
+
+%p
+
+The
+%i
+  ConversationalMessageEndpoint
+extends the current
+%i
+  MessageEndpoint
+interface, with no new methods.
+
+%h2 Example
+
+The
+%a{:href=>"conversationalinflow.zip"}
+  ZIP file
+contains an example of a simple conversation pattern between an Enterprise Information System and the application server.
+
+%p
+
+There are 5 different message types from the Enterprise Information System:
+
+%p
+
+%ol
+  %li "A": Start a conversation with the supplied conversation identifier
+  %li "B": Send a message to endpoint "B" identified by the supplied conversation identifier
+  %li "C": Send a message to endpoint "C" identified by the supplied conversation identifier
+  %li "D": End a conversation with the supplied conversation identifier
+  %li "E": Cancel a conversation with the supplied conversation identifier
+
+%p
+
+So, a simple interaction could be "A", "B", "C" and "D", which starts a conversation, sends messages to two different endpoints, and ends the conversation
+successfully. The key here is that the two endpoints operates under the same transactional context, as the
+%i
+  Conversation
+instance will enlist the associated
+%i
+  XAResource
+instances.
+
+%p
+
+Even though the example use a specialized message listener interface (
+%i
+  ConversationalMessageListener
+) to simplify the JUnit test case, and the entire proof of concept setup it would be possible to convert it to a
+Java Messaging Service (JMS) based example calling Enterprise JavaBeans Message Driven Beans (EJB/MDB).
+
+%p
+
+In that case, you will end up with a transactional context spanning two MDBs, and thereby tying them "together".
+
+%p
+
+.code_small
+  Example overview:
+  %p
+  ConversationalTestCase.java - JUnit test case
+  %br
+  cra/ConversationalResourceAdapterImpl.java - Conversational resource adapter implementation
+  %br
+  cra/inflow/ConversationalActivation.java - Interaction with the Enterprise Information System
+  %br
+  cra/inflow/ConversationalActivationSpec.java - The activation specification
+  %br
+  cra/inflow/ConversationalMessageListener.java - The message listener interface
+  %br
+  spi/ConversationalResourceAdapter.java - New ConversationalResourceAdapter interface
+  %br
+  spi/conversation/Conversation.java - New Conversation interface
+  %br
+  spi/conversation/ConversationalMessageEndpoint.java - New ConversationalMessageEndpoint interface
+  %br
+  spi/conversation/ConversationalMessageEndpointFactory.java - New ConversationalMessageEndpointFactory interface
+  %br
+  support/ConversationImpl.java - Example conversation implementation
+  %br
+  support/ConversationalMessageEndpointFactoryImpl.java - Example conversational message endpoint factory implementation
+  %br
+  support/ConversationalMessageEndpointImpl.java - Example conversational message endpoint implementation
+
+%p
+
+Note, that the example is not meant to be 100% complete, so there may be bugs, and missing cases :)
+
+%h2 Future steps
+
+There are a lot of things that needs to be discussed such as recommendations on transaction semantics for conversation implementations,
+and their associated endpoints. The new interfaces likely need additional methods to cover all use-cases, but the basic interaction pattern
+is in place.
+
+%p
+
+Hopefully the next version of the Java EE Connector Architecture specification will see a much more powerful inflow model.
+
