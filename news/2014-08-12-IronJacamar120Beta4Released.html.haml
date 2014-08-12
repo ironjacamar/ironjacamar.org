@@ -1,0 +1,112 @@
+---
+layout: comments
+title: IronJacamar 1.2.0.Beta4 released
+description: 2014-08-12 IronJacamar 1.2.0.Beta4 released
+---
+
+%h1 IronJacamar 1.2.0.Beta4 released
+
+%strong
+  %i August 12th, 2014
+
+%p
+
+I'm proud to announce the IronJacamar 1.2.0.Beta4 release. Full release notes are
+%a{:href=>"https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&version=12325275"}
+  here
+\.
+
+%h2 Almost at the end
+
+Our Beta4 release should mark the end of the beta series for the 1.2 branch, which means the
+next release will hopefully be a candidate for release.
+
+%p
+
+So, now is really the time to speak up if you did spot a missing feature that you think is critical
+to get into the 1.2 series. Use our forums to make your voice heard.
+
+
+%h2 Changes
+
+A couple of changes stands out,
+
+%p
+
+%ul
+  %li
+    %a{:href=>"https://issues.jboss.org/browse/JBJCA-1190"} [JBJCA-1190]
+    Graceful shutdown of ConnectionManager
+  %li
+    %a{:href=>"https://issues.jboss.org/browse/JBJCA-1201"} [JBJCA-1201]
+    Port JDBC resource adapter to JCA 1.6
+  %li
+    %a{:href=>"https://issues.jboss.org/browse/JBJCA-1180"} [JBJCA-1180]
+    Security SPI
+
+%p
+
+The graceful shutdown feature will allow resource adapters, and thereby datasources too, to be put into
+shutdown mode allowing existing connections to finish their work, but reject new connections. The shutdown
+can be canceled within the specified timeout value.
+
+%p
+
+Porting the JDBC resource adapter to Java EE Connector Architecture 1.6 eliminates some internal transaction integration hacks making the resource
+adapter much more "clean". The resource adapter was also updated to use the JBoss Logging framework to provide
+unique codes for important log statements and exceptions.
+
+%p
+
+The addition of our security SPI will allow IronJacamar to use different security frameworks to provide the necessary
+functionality. IronJacamar will continue to ship with PicketBox as the default provider.
+
+%p
+
+The release contains some critical bug fixes as well.
+
+%h2 The Road Ahead
+
+We have added a lot of new functionality to the 1.2 series, so getting to the candidate for release stage is an important milestone for
+the project. 
+
+%p
+
+Now, we need your help to really hammer the release to find any bugs that have escaped us so far. Also try out the new features, and
+report back any issues you see, or things that we need to make more clear.
+
+%p
+
+For people that would like to stay on a stable release we have released IronJacamar 1.1.7.Final too.
+
+%p
+
+Enjoy !
+
+%p
+
+On behalf of the IronJacamar community,
+%br
+%i &nbsp;&nbsp;&nbsp; Jesper
+
+%p
+
+\[
+%a{:href=>"http://www.ironjacamar.org/"}
+  WebSite
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/download.html"}
+  Download
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/documentation.html"}
+  Documentation
+\]
+
+\[
+%a{:href=>"http://issues.jboss.org/browse/JBJCA"}
+  JIRA
+\]
