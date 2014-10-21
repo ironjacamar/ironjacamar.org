@@ -1,0 +1,163 @@
+---
+layout: comments
+title: IronJacamar 1.2.0.Final released
+description: 2014-10-21 IronJacamar 1.2.0.Final released
+---
+
+%h1 IronJacamar 1.2.0.Final released
+
+%strong
+  %i October 21th, 2014
+
+%p
+
+I'm very proud to announce IronJacamar 1.2.0.Final, the first stable release of our IronJacamar 1.2 series.
+
+%p
+
+Only minor issues were found during our CR testing, so the release is small.
+Full release notes are 
+%a{:href=>"https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&version=12325830"}
+  here 
+\.
+
+%h2 IronJamamar 1.2
+
+IronJacamar is an implementation of the Java EE Connector Architecture 1.7 specification featured in the Java EE 7 Full Profile.
+
+%p
+
+Java EE Connector Architecture (JCA) defines a standard architecture for connecting the Java EE platform to heterogeneous Enterprise Information Systems (EIS), like Enterprise Resource Planning (ERP), database and messaging systems.
+
+%p
+
+IronJacamar 1.2 is the third major feature release, which brings a lot of new functionality to the Java EE Connector
+Architecture community.
+
+%p
+
+The major new features include
+
+%p
+
+%ul
+  %li Support for graceful shutdown of ConnectionManager and WorkManager
+  %li Support for connectable XAResources
+  %li Support tracking of connection handles across transaction boundaries
+  %li Additional statistics for pools
+  %li Event tracer for easier debugging 
+
+%p
+
+Lets do a run through.
+
+%h2 Support for graceful shutdown of ConnectionManager and WorkManager
+
+Graceful shutdown support allows the ConnectionManager and the WorkManager to process
+existing requests, but not allow new requests.
+
+%p
+
+Thereby it is possible to shutdown the resource adapters in a "nice" manner. 
+
+%h2 Support for connectable XAResources
+
+Connectable XAResource allows the transaction manager to obtain a connection to the underlying
+Enterprise Information System - f.ex. a database - in order to perform operations during the
+transaction lifecycle.
+
+%p
+
+The
+%a{:href=>"http://www.narayana.io/"}
+  Narayana
+project supports this extension.
+
+%h2 Support tracking of connection handles across transaction boundaries
+
+If a connection handle is used across a transaction boundary it could indicate that
+there is an error in the application flow. By tracking the connection handles on the
+boundary it can be identified where the issue is.
+
+%p
+
+Further information can be found
+%a{:href=>"/doc/roadto12/txtracking.html"}
+  here
+\.
+
+%h2 Additional statistics for pools
+
+Statistics about the pool usage is important in order to optimize settings, so more information
+has been added.
+
+%p
+
+Statistics at the XAResource level has also been added to get information about the underlying
+Enterprise Information System interaction.
+
+
+%h2 Event tracer for easier debugging 
+
+Usage of ConnectionEventListeners and thereby the physical connections to the Enterprise Information System
+can be a complex scenario to debug when errors occurs.
+
+%p
+
+The IronJacamar tracer module will ease the debugging, as reports are generated about the usage that are
+more human readable.
+
+%p
+
+Further information can be found
+%a{:href=>"/doc/roadto12/tracer.html"}
+  here
+\.
+
+%h2 The Road Ahead
+
+We will continue our quest to create the best Java EE Connector Architecture implementation in our 2.0 series, where we will look at how to improve and push the boundaries for what is possible, but first more importantly:
+
+%p
+
+%b
+  Champagne !!
+
+%p
+
+Please, raise your glass, and celebrate with us.
+
+%p
+
+Last, but not least - A
+%b
+  HUGE
+shout-out to our community and developers who helped with this release. You know who you are ! 
+
+%p
+
+On behalf of the IronJacamar community,
+%br
+%i &nbsp;&nbsp;&nbsp; Jesper
+
+%p
+
+\[
+%a{:href=>"http://www.ironjacamar.org/"}
+  WebSite
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/download.html"}
+  Download
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/documentation.html"}
+  Documentation
+\]
+
+\[
+%a{:href=>"http://issues.jboss.org/browse/JBJCA"}
+  JIRA
+\]
