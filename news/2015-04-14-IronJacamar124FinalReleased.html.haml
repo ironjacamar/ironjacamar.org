@@ -1,0 +1,84 @@
+---
+layout: comments
+title: IronJacamar 1.2.4.Final released
+description: 2015-04-14 IronJacamar 1.2.4.Final released
+---
+
+%h1 IronJacamar 1.2.4.Final released
+
+%strong
+  %i April 14th, 2015
+
+%p
+
+I'm proud to announce the IronJacamar 1.2.4.Final release. Full release notes are
+%a{:href=>"https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&version=12326898"}
+  here
+\.
+
+%h2 Changes
+
+This release is mainly a release supporting new features of the IronJacamar tracer, but contains some other changes as well,
+
+%p
+
+%ul
+  %li
+    %a{:href=>"https://issues.jboss.org/browse/JBJCA-1261"} [JBJCA-1261]
+    Rework pool policies
+  %li
+    %a{:href=>"https://issues.jboss.org/browse/JBJCA-1258"} [JBJCA-1258]
+    Remove JDBC driver cache
+
+%p
+
+The
+%a{:href=>"https://issues.jboss.org/browse/JBJCA-1259"}
+  tracer
+can now trace invocation scenarios involving the cached connection manager, and thereby provide an overview of
+lazy transaction enlistment call stacks.
+
+%p
+
+The pool policies have been reworked, such that it is the decrementer policy selected that determines how
+the pool should operate (First In First Out or First In Last Out). Each decrementer policy is descibed in our
+%a{:href=>"http://www.ironjacamar.org/doc/userguide/1.2/en-US/html/ch05.html#deploying_capacity_policies"}
+  user guide
+\.
+
+
+%h2 The Road Ahead
+
+This release also took time away from IronJacamar 2 development, but hopefully soon work will start again.
+
+%p
+
+Enjoy !
+
+%p
+
+On behalf of the IronJacamar community,
+%br
+%i &nbsp;&nbsp;&nbsp; Jesper
+
+%p
+
+\[
+%a{:href=>"http://www.ironjacamar.org/"}
+  WebSite
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/download.html"}
+  Download
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/documentation.html"}
+  Documentation
+\]
+
+\[
+%a{:href=>"http://issues.jboss.org/browse/JBJCA"}
+  JIRA
+\]
