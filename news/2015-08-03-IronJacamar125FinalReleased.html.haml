@@ -1,0 +1,84 @@
+---
+layout: comments
+title: IronJacamar 1.2.5.Final released
+description: 2015-08-03 IronJacamar 1.2.5.Final released
+---
+
+%h1 IronJacamar 1.2.5.Final released
+
+%strong
+  %i August 3rd, 2015
+
+%p
+
+I'm proud to announce the IronJacamar 1.2.5.Final release. Full release notes are
+%a{:href=>"https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&version=12326963"}
+  here
+\.
+
+%p
+
+This announcement was delayed due to the various issues suffered by
+%a{:href=>"http://sourceforge.net"}
+  SourceForge
+in July, 2015.
+
+%h2 Changes
+
+This release also added new features to the IronJacamar tracer, but contains some other changes as well,
+
+%p
+
+%ul
+  %li
+    %a{:href=>"https://issues.jboss.org/browse/JBJCA-1275"} [JBJCA-1275]
+    Send TMFAIL and do setRollbackOnly before connection is killed
+  %li
+    %a{:href=>"https://issues.jboss.org/browse/JBJCA-1278"} [JBJCA-1278]
+    Prefill connection leak
+
+%p
+
+The
+%a{:href=>"https://issues.jboss.org/browse/JBJCA-1271"}
+  tracer
+can now record the call stacks of the connection lifecycle events such that a full overview of where connections
+are obtained and released. A confidential mode was added in order to remove all call stacks from the events if
+they are not allowed to be distributed. And more reports were added to display information about ManagedConnections
+and transactions.
+
+%h2 The Road Ahead
+
+We hope that we can switch to IronJacamar 2 development soon, but patches are welcome at any time as always.
+
+%p
+
+Enjoy !
+
+%p
+
+On behalf of the IronJacamar community,
+%br
+%i &nbsp;&nbsp;&nbsp; Jesper
+
+%p
+
+\[
+%a{:href=>"http://www.ironjacamar.org/"}
+  WebSite
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/download.html"}
+  Download
+\]
+
+\[
+%a{:href=>"http://www.ironjacamar.org/documentation.html"}
+  Documentation
+\]
+
+\[
+%a{:href=>"http://issues.jboss.org/browse/JBJCA"}
+  JIRA
+\]
