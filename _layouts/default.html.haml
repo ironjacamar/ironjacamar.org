@@ -12,14 +12,14 @@
     - if site.url
       %link(rel="canonical"){:href=>site.url}
     %link{ :rel=>'stylesheet', :type=>'text/css', :href=>"/stylesheets/styles.css" }
-    %link{ :rel=>'shortcut icon', :type=>'image/x-icon', :href=>"#{site.base_url}/favicon.ico" }
+    %link{ :rel=>'shortcut icon', :type=>'image/x-icon', :href=>"/favicon.ico" }
     /[if lt IE 9]
       %script{ :type=>'text/javascript', :src=>'//html5shim.googlecode.com/svn/trunk/html5.js' }
   %body
     %header
       %section{:style=>"padding: -20px auto;"}
         %a{:href=>"/" }
-          %img{ :src=>"#{site.base_url}/images/banner.png", :alt=>"IronJacamar"}
+          %img{ :src=>"/images/banner.png", :alt=>"IronJacamar"}
     %article
       ~ content
       %br
@@ -41,4 +41,4 @@
         %li
           %a{ :href=>"/issues.html"}Issues
       %a{ :href=>"http://www.redhat.com"}
-        %img{ :src=>"#{site.base_url}/images/redhat_logo.png", :alt=>"Proudly sponsored by Red Hat"}
+        %img{ :src=>"/images/redhat_logo.png", :alt=>"Proudly sponsored by Red Hat"}
